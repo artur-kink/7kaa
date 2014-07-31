@@ -66,13 +66,13 @@ void Matrix::init(int winX1, int winY1, int winX2, int winY2, int areaWidth,
 	win_x2 = winX2;
 	win_y2 = winY2;
 
-	image_width  = areaWidth;
-	image_height = areaHeight;
+	image_width  = areaWidth+1;
+	image_height = areaHeight+1;
 
 	image_x1 = win_x1;  // bitmap area only
 	image_y1 = win_y1;
-	image_x2 = image_x1+image_width-1;
-	image_y2 = image_y1+image_height-1;
+	image_x2 = image_x1+areaWidth-1;
+	image_y2 = image_y1+areaWidth-1;
 
 	loc_width  = locWidth;
 	loc_height = locHeight;
