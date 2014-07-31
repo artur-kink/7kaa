@@ -491,7 +491,7 @@ void World::explore(int xLoc1, int yLoc1, int xLoc2, int yLoc2)
 
 				//-------- draw pixel ----------//
 
-				writePtr = imageBuf+MAP_WIDTH*yLoc+xLoc;
+				writePtr = imageBuf+((MAP_M_WIDTH+1)*(int)(yLoc*MINIMAP_MULTIPLIER))+(int)(xLoc*MINIMAP_MULTIPLIER);
 
 				switch( world.map_matrix->map_mode )
 				{

@@ -198,105 +198,97 @@ void MapMatrix::draw_map()
 			writePtr = writePtrLine + (int)(writePtrX);
 			if( locPtr->explored() )
 			{
-					if( locPtr->fire_str() > 0)
-						*writePtr = (char) FIRE_COLOR;
-
-					else if( locPtr->is_plant() )
-						*writePtr = plant_res.plant_map_color;
-
+				if( locPtr->fire_str() > 0)
+					*writePtr = (char) FIRE_COLOR;
+				else if( locPtr->is_plant() )
+					*writePtr = plant_res.plant_map_color;
+				else
+				{
+					tilePixel = terrain_res.get_map_tile(locPtr->terrain_id)[tileYOffset + (x & TERRAIN_TILE_X_MASK)];
+                                        
+					if( y == image_y1 || x == image_x1)
+					{
+						*writePtr = tilePixel;
+					}
 					else
 					{
-						tilePixel = terrain_res.get_map_tile(locPtr->terrain_id)[tileYOffset + (x & TERRAIN_TILE_X_MASK)];
+						northWestPtr = locPtr - shadowMapDist;
 
-						if( y == image_y1 || x == image_x1)
+						if( terrain_res[locPtr->terrain_id]->average_type >=
+							terrain_res[northWestPtr->terrain_id]->average_type)
 						{
 							*writePtr = tilePixel;
 						}
 						else
 						{
-							northWestPtr = locPtr - shadowMapDist;
-
-							if( terrain_res[locPtr->terrain_id]->average_type >=
-								terrain_res[northWestPtr->terrain_id]->average_type)
-							{
-								*writePtr = tilePixel;
-							}
-							else
-							{
 								*writePtr = (char) VGA_GRAY;
-							}
 						}
 					}
 				}
-				else
-				{
-					*writePtr = UNEXPLORED_COLOR;
-				}
+			}
+			else
+			{
+				*writePtr = UNEXPLORED_COLOR;
 			}
 		}
-		break;
+	}
+	break;
 
 	case MAP_MODE_SPOT:
-		for( y=image_y1 ; y<=image_y2 ; y++, writePtrY += (MINIMAP_MULTIPLIER) )
+	for( y=image_y1 ; y<=image_y2 ; y++, writePtrY += (MINIMAP_MULTIPLIER) )
+	{
+		writePtrLine = writePtrOriginal + (int)(writePtrY)*(lineRemain + (image_x2 - image_x1) + 2);
+		writePtr = writePtrLine;
+		writePtrX = 0;
+		for( x=image_x1 ; x<=image_x2 ; x++, writePtrX+=(MINIMAP_MULTIPLIER), locPtr++ )
 		{
-            writePtrLine = writePtrOriginal + (int)(writePtrY)*(lineRemain + (image_x2 - image_x1) + 2);
-            writePtr = writePtrLine;
-            writePtrX = 0;
-			for( x=image_x1 ; x<=image_x2 ; x++, writePtrX+=(MINIMAP_MULTIPLIER), locPtr++ )
+			writePtr = writePtrLine + (int)(writePtrX);
+			if( locPtr->explored() )
 			{
-                writePtr = writePtrLine + (int)(writePtrX);
-				if( locPtr->explored() )
-				{
-					if( locPtr->sailable() )
-						*writePtr = (char) 0x32;
-
-					else if( locPtr->has_hill() )
-						*writePtr = (char) V_BROWN;
-
-//					else if( locPtr->is_plant() )
-//						*writePtr = (char) V_DARK_GREEN;
-
-					else
-						*writePtr = (char) VGA_GRAY+10;
-				}
+				if( locPtr->sailable() )
+					*writePtr = (char) 0x32;
+				else if( locPtr->has_hill() )
+					*writePtr = (char) V_BROWN;
+				//else if( locPtr->is_plant() )
+				//	*writePtr = (char) V_DARK_GREEN;
 				else
-				{
-					*writePtr = UNEXPLORED_COLOR;
-				}
+					*writePtr = (char) VGA_GRAY+10;
+			}
+			else
+			{
+				*writePtr = UNEXPLORED_COLOR;
 			}
 		}
-		break;
+	}
+	break;
 
 	case MAP_MODE_POWER:
-		for( y=image_y1 ; y<=image_y2 ; y++, writePtrY += (MINIMAP_MULTIPLIER) )
+	for( y=image_y1 ; y<=image_y2 ; y++, writePtrY += (MINIMAP_MULTIPLIER) )
+	{
+		writePtrLine = writePtrOriginal + (int)(writePtrY)*(lineRemain + (image_x2 - image_x1) + 2);
+		writePtr = writePtrLine;
+		writePtrX = 0;
+		for( x=image_x1 ; x<=image_x2 ; x++, writePtrX+=(MINIMAP_MULTIPLIER), locPtr++ )
 		{
-            writePtrLine = writePtrOriginal + (int)(writePtrY)*(lineRemain + (image_x2 - image_x1) + 2);
-            writePtr = writePtrLine;
-            writePtrX = 0;
-			for( x=image_x1 ; x<=image_x2 ; x++, writePtrX+=(MINIMAP_MULTIPLIER), locPtr++ )
+			writePtr = writePtrLine + (int)(writePtrX);
+			if( locPtr->explored() )
 			{
-                writePtr = writePtrLine + (int)(writePtrX);
-				if( locPtr->explored() )
-				{
-					if( locPtr->sailable() )
-						*writePtr = (char) 0x32;
-
-					else if( locPtr->has_hill() )
-						*writePtr = (char) V_BROWN;
-
-					else if( locPtr->is_plant() )
-						*writePtr = (char) V_DARK_GREEN;
-
-					else
-						*writePtr = nationColorArray[locPtr->power_nation_recno];
-				}
+                        	if( locPtr->sailable() )
+					*writePtr = (char) 0x32;
+				else if( locPtr->has_hill() )
+					*writePtr = (char) V_BROWN;
+				else if( locPtr->is_plant() )
+					*writePtr = (char) V_DARK_GREEN;
 				else
-				{
-					*writePtr = UNEXPLORED_COLOR;
-				}
+					*writePtr = nationColorArray[locPtr->power_nation_recno];
+			}
+			else
+			{
+				*writePtr = UNEXPLORED_COLOR;
 			}
 		}
-		break;
+	}
+	break;
 	}
 
 	sys.yield();
