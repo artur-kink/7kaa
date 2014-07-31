@@ -274,6 +274,7 @@ void MapMatrix::draw_map()
             writePtrX = 0;
 			for( x=image_x1 ; x<=image_x2 ; x++, writePtrX+=(MINIMAP_MULTIPLIER), locPtr++ )
 			{
+                writePtr = writePtrLine + (int)(writePtrX);
 				if( locPtr->explored() )
 				{
 					if( locPtr->sailable() )

@@ -43,13 +43,13 @@
 #define MAP_WIDTH       MAX_WORLD_X_LOC
 #define MAP_HEIGHT      MAX_WORLD_Y_LOC
 
-#define MAX_MAP_WIDTH	1000
-#define MAX_MAP_HEIGHT	1000
+#define MAX_MAP_WIDTH	600
+#define MAX_MAP_HEIGHT	600
 
 #define MAP_M_WIDTH     200
 #define MAP_M_HEIGHT    200
 
-#define MINIMAP_MULTIPLIER 200.0/1000.0 //Drawing scale multiplier for minimap.
+#define MINIMAP_MULTIPLIER 200.0/600.0 //Drawing scale multiplier for minimap.
 
 #define MAP_X1          588 //Minimap's X position
 #define MAP_Y1          56 //Minimap's Y position
