@@ -336,7 +336,6 @@ void World::generate_map()
 	}
 
 	#endif
-
 }
 //---------- End of function World::generate_map ------------//
 

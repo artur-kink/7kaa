@@ -188,10 +188,10 @@ void SiteArray::draw_dot()
 		mapX = MAP_X1 + (rawPtr->map_x_loc)*(MINIMAP_MULTIPLIER);
 		mapY = MAP_Y1 + (rawPtr->map_y_loc)*(MINIMAP_MULTIPLIER);
 
-		if( mapX >= MAP_WIDTH-1 )
+		if( mapX == MAP_WIDTH-1 )
 			mapX = MAP_WIDTH-2;
 
-		if( mapY >= MAP_HEIGHT-1 )
+		if( mapY == MAP_HEIGHT-1 )
 			mapY = MAP_HEIGHT-2;
 
 		// ###### begin Gilbert 2/9 #######//

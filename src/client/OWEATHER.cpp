@@ -27,6 +27,7 @@
 #include <ALL.h>
 #include <math.h>
 #include <OWORLDMT.h>
+#include <OWORLD.h>
 #include <stdlib.h>
 
 //---------- Define constant -----------//
@@ -99,8 +100,8 @@ void Weather::next_day()
 		if ( is_quake() )
 		{
 			// generate quake_x, quake_y
-			quake_x = rand_seed(0x10000) * MAX_MAP_WIDTH / 0x10000;
-			quake_y = rand_seed(0x10000) * MAX_MAP_HEIGHT / 0x10000;
+			quake_x = rand_seed(0x10000) * MAP_WIDTH / 0x10000;
+			quake_y = rand_seed(0x10000) * MAP_HEIGHT / 0x10000;
 		}
 	}
 	else

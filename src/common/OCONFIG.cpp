@@ -93,6 +93,7 @@ void Config::default_game_setting()
 
 	explore_whole_map = 1;
 	fog_of_war   = 0;
+        map_size = MAP_SIZE_SMALL;
 
 	terrain_set = 1;
 	latitude = 45;
@@ -105,7 +106,7 @@ void Config::default_game_setting()
 	monster_type = OPTION_MONSTER_DEFENSIVE;
 	new_nation_emerge = 1;
 	start_up_has_mine_nearby = 0;
-   random_start_up = 0;
+	random_start_up = 0;
 
 	change_difficulty(OPTION_VERY_EASY);
 
@@ -329,6 +330,7 @@ void Config::change_preference( Config &c )
 
 	//------------ map prefernce -------------//
 
+        map_size = c.map_size;
 	blacken_map = c.blacken_map;
 	explore_mask_method = c.explore_mask_method;
 	fog_mask_method = c.fog_mask_method;

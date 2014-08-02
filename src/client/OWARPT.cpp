@@ -33,8 +33,8 @@
 // divide the map into zone, each zone has size WARPOINT_ZONE_SIZE
 
 #define WARPOINT_ZONE_SIZE 8
-#define WARPOINT_ZONE_COLUMN ((MAX_MAP_WIDTH + WARPOINT_ZONE_SIZE -1) / WARPOINT_ZONE_SIZE)
-#define WARPOINT_ZONE_ROW ((MAX_MAP_HEIGHT + WARPOINT_ZONE_SIZE -1) / WARPOINT_ZONE_SIZE)
+#define WARPOINT_ZONE_COLUMN ((MAP_WIDTH + WARPOINT_ZONE_SIZE -1) / WARPOINT_ZONE_SIZE)
+#define WARPOINT_ZONE_ROW ((MAP_HEIGHT + WARPOINT_ZONE_SIZE -1) / WARPOINT_ZONE_SIZE)
 
 #define WARPOINT_STRENGTH 0x100000
 #define WARPOINT_STRENGTH_MAX 0x1000000
@@ -125,7 +125,7 @@ void WarPointArray::draw_dot()
  	for( y = 0, mapY=MAP_Y1; y < WARPOINT_ZONE_ROW; ++y, mapY+=WARPOINT_ZONE_SIZE)
 	{
 		WarPoint *warPt = war_point + y * WARPOINT_ZONE_COLUMN;
-		writePtr = vgaBufPtr + vgaBufPitch * mapY + MAP_X1;
+		writePtr = vgaBufPtr + vgaBufPitch * (int)(mapY*MINIMAP_MULTIPLIER) + MAP_X1;
 		for( x = 0; x < WARPOINT_ZONE_COLUMN; ++x, ++warPt, writePtr+=WARPOINT_ZONE_SIZE)
 		{
 			if( warPt->strength > 0 )
@@ -143,6 +143,7 @@ void WarPointArray::draw_dot()
 			}
 		}
 	}
+     
 }
 // ------ end of function WarPointArray::draw_dot -------//
 

@@ -38,6 +38,8 @@ enum { OPTION_VERY_EASY, OPTION_EASY, OPTION_MEDIUM, OPTION_HARD, OPTION_VERY_HA
 
 enum { OPTION_DISPLAY_MAJOR_NEWS, OPTION_DISPLAY_ALL_NEWS };
 
+enum { MAP_SIZE_SMALL = 0, MAP_SIZE_MEDIUM, MAP_SIZE_LARGE };
+
 //------------- Define constant -------------//
 
 enum { SMALL_STARTUP_RESOURCE  = 4000,
@@ -228,9 +230,10 @@ public:
 
 	//------------ map prefernce -------------//
 
-	char			blacken_map;				// whether the map is blackened at the first place
-	char			explore_mask_method;		// 0 for none, 1 for masking, 2 for remapping
-	char			fog_mask_method;			// 1 for fast masking, 2 for slow remapping
+	char			map_size;		// size of map, default MAP_SIZE_SMALL
+	char			blacken_map;		// whether the map is blackened at the first place
+	char			explore_mask_method;	// 0 for none, 1 for masking, 2 for remapping
+	char			fog_mask_method;	// 1 for fast masking, 2 for slow remapping
 };
 #pragma pack()
 

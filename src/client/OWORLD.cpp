@@ -48,7 +48,7 @@
 //------------ Define static class variables ------------//
 
 short World::view_top_x, World::view_top_y;
-int   World::max_x_loc=MAX_MAP_WIDTH, World::max_y_loc=MAX_MAP_HEIGHT;
+int   World::max_x_loc=200, World::max_y_loc=200;
 
 //----------- Begin of function World::World ----------//
 
@@ -61,11 +61,9 @@ World::World()
 	lightning_signal = 0;
 	plant_count = 0;
 	plant_limit = 0;
-
-   //------- initialize matrix objects -------//
-
-   map_matrix  = new MapMatrix;
-   zoom_matrix = new ZoomMatrix;
+	
+        map_matrix = NULL;
+        zoom_matrix = NULL;
 }
 //------------- End of function World::World -----------//
 
@@ -95,6 +93,42 @@ World::~World()
 
 void World::init()
 {
+	//------- initialize matrix objects -------//
+
+    	if( map_matrix )
+	{
+		delete map_matrix;
+	}
+
+	if( zoom_matrix )
+	{
+		delete zoom_matrix;
+	}
+        
+        if(config.map_size == MAP_SIZE_SMALL)
+	{
+		MAP_WIDTH = 600;
+		MAP_HEIGHT = 600;
+	}
+        else if(config.map_size == MAP_SIZE_MEDIUM)
+	{
+		MAP_WIDTH = 400;
+		MAP_HEIGHT = 400;
+	}
+        else if(config.map_size == MAP_SIZE_LARGE)
+	{
+		MAP_WIDTH = 600;
+		MAP_HEIGHT = 600;
+	}
+        
+    seek_path.deinit();
+    seek_path.init(MAX_BACKGROUND_NODE);
+   seek_path_reuse.deinit();
+   seek_path_reuse.init(MAX_BACKGROUND_NODE);
+   
+	map_matrix  = new MapMatrix;
+	zoom_matrix = new ZoomMatrix;
+   
 	//----------- initialize vars -------------//
 
 	scan_fire_x = 0;
@@ -192,7 +226,7 @@ void World::process()
 	}
 	if( lightning_signal == 106 && config.weather_effect)
 	{
-		lightning_strike(misc.random(MAX_MAP_WIDTH), misc.random(MAX_MAP_HEIGHT), 1);
+		lightning_strike(misc.random(MAP_WIDTH), misc.random(MAP_HEIGHT), 1);
 	}
 	if(lightning_signal == 100)
 		lightning_signal = 5 + misc.random(10);

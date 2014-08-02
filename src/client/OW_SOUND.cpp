@@ -47,7 +47,7 @@ void World::process_ambient_sound()
 		int xLoc = misc.random(max_x_loc) - (zoom_matrix->top_x_loc + zoom_matrix->disp_x_loc/2);
 		int yLoc = misc.random(max_y_loc) - (zoom_matrix->top_y_loc + zoom_matrix->disp_y_loc/2);
 		PosVolume p(PosVolume(xLoc, yLoc));
-		RelVolume relVolume(p, 200, MAX_MAP_WIDTH);
+		RelVolume relVolume(p, 200, MAP_WIDTH);
 		if( relVolume.rel_vol < 80)
 			relVolume.rel_vol = 80;
 

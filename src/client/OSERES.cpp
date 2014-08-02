@@ -450,7 +450,7 @@ void SERes::far_sound(short xLoc, short yLoc, short frame,
 	short relXLoc = xLoc - (world.zoom_matrix->top_x_loc + world.zoom_matrix->disp_x_loc/2);
 	short relYLoc = yLoc - (world.zoom_matrix->top_y_loc + world.zoom_matrix->disp_y_loc/2);
 	PosVolume posv(relXLoc, relYLoc);
-	RelVolume relVolume( posv, 200, MAX_MAP_WIDTH );
+	RelVolume relVolume( posv, 200, MAP_WIDTH );
 	if( !config.pan_control )
 		relVolume.ds_pan = 0;
 	SEInfo *seInfo;
