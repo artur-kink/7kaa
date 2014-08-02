@@ -356,8 +356,8 @@ void TornadoArray::draw_dot()
 		if( !tornadoPtr )
 			continue;
 
-		mapX = MAP_X1 + tornadoPtr->cur_x_loc();
-		mapY = MAP_Y1 + tornadoPtr->cur_y_loc();
+		mapX = MAP_X1 + tornadoPtr->cur_x_loc()*MINIMAP_MULTIPLIER;
+		mapY = MAP_Y1 + tornadoPtr->cur_y_loc()*MINIMAP_MULTIPLIER;
 
 		// ####### begin Gilbert 13/11 #########//
 		if( mapX < MAP_X1 || mapX > MAP_X2 || mapY < MAP_Y1 || mapY > MAP_Y2 )
