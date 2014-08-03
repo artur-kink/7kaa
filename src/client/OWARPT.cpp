@@ -118,16 +118,19 @@ void WarPointArray::draw_dot()
 
 	int x,y;
 	short mapY;
+        unsigned char *writePtrLine;
 	unsigned char *writePtr;
 	unsigned char *vgaBufPtr = (unsigned char *)vga_back.buf_ptr();
 	int vgaBufPitch = vga_back.buf_pitch();
 
- 	for( y = 0, mapY=MAP_Y1; y < WARPOINT_ZONE_ROW; ++y, mapY+=WARPOINT_ZONE_SIZE)
+ 	for( y = 0; y < WARPOINT_ZONE_ROW; ++y)
 	{
+                mapY = MAP_Y1 + y*(WARPOINT_ZONE_SIZE*MINIMAP_MULTIPLIER);
 		WarPoint *warPt = war_point + y * WARPOINT_ZONE_COLUMN;
-		writePtr = vgaBufPtr + vgaBufPitch * (int)(mapY*MINIMAP_MULTIPLIER) + MAP_X1;
-		for( x = 0; x < WARPOINT_ZONE_COLUMN; ++x, ++warPt, writePtr+=WARPOINT_ZONE_SIZE)
+		writePtrLine = vgaBufPtr + vgaBufPitch * mapY + MAP_X1;
+		for( x = 0; x < WARPOINT_ZONE_COLUMN; ++x, ++warPt)
 		{
+                        writePtr = writePtrLine + (int)(x*(WARPOINT_ZONE_SIZE*MINIMAP_MULTIPLIER));
 			if( warPt->strength > 0 )
 			{
 				// draw a cross, UNEXPLORED_COLOR is not needed to check
